@@ -175,6 +175,9 @@ class DbRecord implements ArrayAccess
      */
     public function offsetGet($columnName)
     {
+        if (!$this->_isUpdated) {
+            $this->refresh();
+        }
         return $this->_record[$columnName];
     }
 
@@ -190,6 +193,9 @@ class DbRecord implements ArrayAccess
      */
     public function offsetSet($columnName, $value)
     {
+        if (!$this->_isUpdated) {
+            $this->refresh();
+        }
         $this->_record[$columnName] = $value;
     }
 
