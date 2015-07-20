@@ -74,37 +74,6 @@ class DbRecord implements ArrayAccess
     }
     
     /**
-     * Gets a column value.
-     * 
-     * @param string $columnName Column name
-     * 
-     * @return string
-     */
-    public function get($columnName)
-    {
-        if (!$this->_isUpdated) {
-            $this->refresh();
-        }
-        return $this->_record->get($columnName);
-    }
-    
-    /**
-     * Sets a column value.
-     * 
-     * @param string $columnName Column name
-     * @param mixed  $value      Value
-     * 
-     * @return void
-     */
-    public function set($columnName, $value)
-    {
-        if (!$this->_isUpdated) {
-            $this->refresh();
-        }
-        return $this->_record->set($columnName, $value);
-    }
-    
-    /**
      * Inserts or updates the record.
      * 
      * @return void
