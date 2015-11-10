@@ -68,7 +68,7 @@ class DbRecord implements ArrayAccess
         $this->_db = $db;
         $this->_tableName = $tableName;
         $this->_id = $id;
-        $this->_record = Text::isEmpty($id)
+        $this->_record = func_num_args() < 3
             ? new DbRecordInsert($db, $tableName)
             : new DbRecordUpdate($db, $tableName, $id);
     }
@@ -83,7 +83,7 @@ class DbRecord implements ArrayAccess
         $this->_record->save();
         
         // retrieves the inserted record
-        if (Text::isEmpty($this->_id)) {
+        if ($this->_record instanceof DbRecordInsert) {
             $row = $this->_db->query("select last_insert_id() as id");
             $this->_id = $row["id"];
         }
@@ -98,7 +98,7 @@ class DbRecord implements ArrayAccess
      */
     public function delete()
     {
-        if (Text::isEmpty($this->_id)) {
+        if ($this->_record instanceof DbRecordInsert) {
             throw new DbException("The record is still not saved");
         }
         $this->_record->delete();
@@ -112,7 +112,7 @@ class DbRecord implements ArrayAccess
      */
     public function refresh()
     {
-        if (Text::isEmpty($this->_id)) {
+        if ($this->_record instanceof DbRecordInsert) {
             throw new DbException("The record is still not saved");
         }
         $this->_record = new DbRecordUpdate($this->_db, $this->_tableName, $this->_id);
