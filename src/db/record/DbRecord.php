@@ -86,6 +86,7 @@ class DbRecord implements ArrayAccess
         if ($this->_record instanceof DbRecordInsert) {
             $row = $this->_db->query("select last_insert_id() as id");
             $this->_id = $row["id"];
+            $this->_record = new DbRecordUpdate($this->_db, $this->_tableName, $this->_id);
         }
         
         $this->_isUpdated = false;
