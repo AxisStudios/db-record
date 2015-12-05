@@ -68,7 +68,7 @@ class DbRecord implements ArrayAccess
         $this->_db = $db;
         $this->_tableName = $tableName;
         $this->_id = $id;
-        $this->_record = func_num_args() < 3
+        $this->_record = Text::isEmpty($id)
             ? new DbRecordInsert($db, $tableName)
             : new DbRecordUpdate($db, $tableName, $id);
     }
