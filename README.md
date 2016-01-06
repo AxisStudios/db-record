@@ -89,21 +89,21 @@ For a more complex example see [test2.php](test/test2.php).
 
 ## Column path expressions
 
-En el ejemplo anterior accedíamos a la columna `title` de `table1` mediante la siguiente expresión: `table1.title`. El formato general sería el siguiente:
+In the previous examples we accessed the `title` column of `table1` through the following expression: `table1.title`. The general format is as follows:
 ```text
 table1[id = table0_id].title
 ```
 
-pero al tratarse de un caso tan común, podemos omitir `id` y `table0_id`, de manera que la expresión anterior queda simplificada en:
+We can omit `id` and `table0_id`, as they are taken by default. So the previous expression can by simplified as follows:
 ```
 table1.title
 ```
 
-Pongamos un ejemplo más complicado. Supongamos que `table2` depende de `table1` que a su vez depende de `table0`. Eso es:
+Let's imagine a more complex example. Let's say that `table2` depends on `table1` which, at the same time, depends on `table0`. That is:
 
 ![test1](https://cloud.githubusercontent.com/assets/5312427/12151271/924a197e-b4ae-11e5-9ea8-a69b36489e54.png)
 
-En ese caso, para acceder a las columnas de `table1` y `table2` usaríamos el siguiente código:
+In that case, we use the following code to access the `table1` and `table2` columns:
 ```php
 $r = DbRecord($db, "table0", 1);
 list($title, $t1Title, $t2Title) = $r->fetch([
@@ -113,12 +113,12 @@ list($title, $t1Title, $t2Title) = $r->fetch([
 ]);
 ```
 
-En el ejemplo anterior `table1.title` y `table2[table1.table2_id].title` son abreviaturas de las siguientes expresiones:
+The previous expressios are simplified versions of the general expressions:
 ```text
 table1[id = table1_id].title
 table2[id = table1.table2_id].title
 ```
 
-Podemos omitir `id` y `<table>_id`, ya que se toman por defecto.
+We can omit `id` and `<table>_id`, as they are taken by default.
 
-Para ejemplos completos, vea [test3.php](test/test3.php), [test4.php](test/test4.php) y [test5.php](test/test5.php)
+For more complex examples see [test3.php](test/test3.php), [test4.php](test/test4.php) y [test5.php](test/test5.php)
