@@ -42,3 +42,15 @@ list($title, $createdOn, $t1Title, $t2Title, $t3Title) = $r->fetch([
 El ejemplo anterior recupera columnas de las tablas table0, table1, table2 y table3 y las almacena en las variables $title, $createdAt, $t1Title, $t2Title y $t3Title.
 
 Para ejemplos completos, vea [test1.php](test/test1.php) y [test2.php](test/test2.php).
+
+### Example 2 (Column paths)
+
+En el ejemplo anterior accedíamos a la columna title de table1 mediante la siguiente expresión: table1.title. El formato general sería el siguiente:
+```text
+table1[id = table0_id].title
+```
+
+pero al tratarse de un caso tan común, podemos omitir `id` y `table0_id`, de manera que la expresión anterior queda simplificada en:
+```
+table1.title
+```
