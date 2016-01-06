@@ -16,11 +16,11 @@ See [Basic Usage](https://getcomposer.org/doc/01-basic-usage.md) for more info.
 
 ## Basic examples: save() and fetch()
 
-Usaremos los métodos `fetch()` y `save()` para recuperar o insertar/actualizar registros respectivamente. El método `save()` puede actualizar un registro o insertarlo, dependiendo si existe o no.
+We use the methods `save()` and `fetch()` to save or retrieve records, respectively. The `save()` method can insert or update a record, depending on whether the record exists or not.
 
 ### Inserting records
 
-Para insertar registros, omitimos el parámetro `id` en el constructor. Por ejemplo:
+To insert records we omit the `id` parameter from the constructor. For example:
 ```php
 // creates a new record (INSERT)
 $r = new DbRecord($db, "table0");
@@ -29,7 +29,7 @@ $r->save(["title" => "New title", "created_at" => date("Y-m-d H:i:s")]);
 
 ### Updating records
 
-Para actualizar un registro, indicaremos el `id` en el constructor. Por ejemplo:
+To update records, we inidicate the `id` parameter in the constructor. For example:
 ```php
 // updates a new record (UPDATE)
 $r = new DbRecord($db, "table0", 1);
@@ -38,7 +38,7 @@ $r->save(["title" => "New title", "created_at" => date("Y-m-d H:i:s")]);
 
 ## Selecting records
 
-Para seleccionar un registro, indicaremos el `id` en el constructor. Por ejemplo:
+To select records, we inidicate the `id` parameter in the constructor. For example:
 ```php
 // selects a record an fetches column values (SELECT)
 $r = new DbRecord($db, "table0", 1);
@@ -46,15 +46,14 @@ list($title, $createdAt) = $r->fetch(["title", "created_at" => date("Y-m-d H:i:s
 echo "title: $title, Created at: $createdAt";
 ```
 
-En el caso de que estemos usando una única columnas, los métodos `save()` y `fetch()` se pueden simplificar como sigue:
-
+In case we're using a single column, the `save()` and `fetch()` methods can be simplified as follows:
 ```php
 // no array needed
 $r->save("column", "value");
 $value = $r->fetch("column");
 ```
 
-Para un ejemplo completo, vea [test1.php](test/test1.php).
+For a more complex example see [test1.php](test/test1.php).
 
 ## General example: Accessing several tables at the same time
 
