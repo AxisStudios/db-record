@@ -16,6 +16,21 @@ See [Basic Usage](https://getcomposer.org/doc/01-basic-usage.md) for more info.
 
 ## Basic examples: save() and fetch()
 
+### Inserting records
+
+Para insertar registros, omitimos el parámetro `id` en el constructor. Por ejemplo:
+```php
+$r = new DbRecord($db, "table0");
+$r->save(["title" => "New title"]);
+```
+
+Al tratarse de una sóla columna (title), podemos escribir:
+```php
+$r = new DbRecord($db, "table0");
+// no array needed
+$r->save("title", "New title");
+```
+
 ## General example: Accessing several tables at the same time
 
 Supongamos que tenemos una tabla principal (table0) de la que penden tres tablas secundarias (table1, table2 y table3) a través de los campos table1_id, table2_id y table3_id. Esto es:  
