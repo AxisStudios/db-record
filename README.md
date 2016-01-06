@@ -77,4 +77,10 @@ list($title, $t1Title, $t2Title) = $r->fetch([
 ]);
 ```
 
-En el ejemplo anterior `table1.title` y `table2[table1.table2_id].title` son abreviaturas de las siguientes expresiones: `table1[id = table1_id].title` y `table2[id = table1.table2_id].title`. Podemos omitir `id` y `<table>_id`, ya que se toman por defecto.
+En el ejemplo anterior `table1.title` y `table2[table1.table2_id].title` son abreviaturas de las siguientes expresiones:
+```text
+table1[id = table1_id].title
+table2[id = table1.table2_id].title
+```
+
+Podemos omitir `id` y `<table>_id`, ya que se toman por defecto.
