@@ -66,3 +66,15 @@ table1.title
 Pongamos un ejemplo más complicado. Supongamos que `table2` depende de `table1` que a su vez depende de `table0`. Eso es:
 
 ![test1](https://cloud.githubusercontent.com/assets/5312427/12151271/924a197e-b4ae-11e5-9ea8-a69b36489e54.png)
+
+En ese caso, para acceder a las columnas de `table1` y `table2` usaríamos el siguiente código:
+```php
+$r = DbRecord($db, "table0", 1);
+list($title, $t1Title, $t2Title) = $r->fetch([
+  "title",
+  "table1.title",
+  "table2[table1.table2_id].title"
+]);
+```
+
+En el ejemplo anterior `table1.title` y `table2[table1.table2_id].title` son abreviaturas de las siguientes expresiones: `table1[id = table1_id].title` y `table2[id = table1.table2_id].title`. Podemos omitir `id` y `<table>_id`, ya que se toman por defecto.
