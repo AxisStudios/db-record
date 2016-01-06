@@ -72,7 +72,7 @@ $r->save([
 ]);
 ```
 
-The following example selects a record (ID = 1) and retrieves column values from `table0`, `table1`, `table2` and `table3` at the same time:
+The following example selects a record (ID = 1) and retrieves columns from `table0`, `table1`, `table2` and `table3` at the same time:
 ```php
 $r = new DbRecord($db, "table0", 1);
 list($title, $createdAt, $t1Title, $t2Title, $t3Title) = $r->fetch([
