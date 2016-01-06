@@ -51,9 +51,9 @@ El ejemplo anterior recupera columnas de las tablas table0, table1, table2 y tab
 
 Para ejemplos completos, vea [test1.php](test/test1.php) y [test2.php](test/test2.php).
 
-### Example 2 (Column paths)
+## Column path expressions
 
-En el ejemplo anterior accedíamos a la columna title de table1 mediante la siguiente expresión: table1.title. El formato general sería el siguiente:
+En el ejemplo anterior accedíamos a la columna `title` de `table1` mediante la siguiente expresión: `table1.title`. El formato general sería el siguiente:
 ```text
 table1[id = table0_id].title
 ```
