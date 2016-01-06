@@ -63,5 +63,5 @@ pero al tratarse de un caso tan común, podemos omitir `id` y `table0_id`, de ma
 table1.title
 ```
 
-Pongamos un ejemplo más complicado. Supongamos que table2 depende de table1 que a su vez depende de table0. Eso est:
-
+Pongamos un ejemplo más complicado. Supongamos que `table2` depende de `table1` que a su vez depende de `table0`. Eso ess:
+![test1](https://cloud.githubusercontent.com/assets/5312427/12151271/924a197e-b4ae-11e5-9ea8-a69b36489e54.png)
