@@ -62,3 +62,6 @@ pero al tratarse de un caso tan común, podemos omitir `id` y `table0_id`, de ma
 ```
 table1.title
 ```
+
+Pongamos un ejemplo más complicado. Supongamos que table2 depende de table1 que a su vez depende de table0. Eso est:
+
