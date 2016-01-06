@@ -84,3 +84,5 @@ table2[id = table1.table2_id].title
 ```
 
 Podemos omitir `id` y `<table>_id`, ya que se toman por defecto.
+
+Para ejemplos completos, vea [test3.php](test/test3.php), [test4.php](test/test4.php) y [test5.php](test/test5.php)
