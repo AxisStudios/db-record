@@ -2,7 +2,7 @@
 
 ## Introduction
 
-DbRecord es una librería que nos permite operar con bases de datos sin necesidad de ejecutar manualmente sentencias SQL. A diferencia de otras librerías similares, DbRecord nos permite **operar sobre varias tablas al mismo tiempo**, lo cual redunda en un código más conciso y claro.
+`DbRecord` is a library that allows us to operate databases without manually execute SQL statements. Unlike other similar libraries, **DbRecord allows us to operate on multiple tables at the same time**, resulting in a more concise and clear code.
 
 ## Installation
 
