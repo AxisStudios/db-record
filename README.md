@@ -18,7 +18,7 @@ See [Basic Usage](https://getcomposer.org/doc/01-basic-usage.md) for more info.
 
 We use the `save()` and `fetch()` methods to save or retrieve records, respectively. The `save()` method can insert or update a record, depending on whether the record exists or not.
 
-### Inserting records
+**Inserting records**
 
 To insert records we omit the `id` parameter from the constructor. For example:
 ```php
@@ -27,7 +27,7 @@ $r = new DbRecord($db, "table0");
 $r->save(["title" => "New title", "created_at" => date("Y-m-d H:i:s")]);
 ```
 
-### Updating records
+**Updating records**
 
 To update records, we inidicate the `id` parameter in the constructor. For example:
 ```php
@@ -36,7 +36,7 @@ $r = new DbRecord($db, "table0", 1);
 $r->save(["title" => "New title", "created_at" => date("Y-m-d H:i:s")]);
 ```
 
-## Selecting records
+**Selecting records**
 
 To select records, we inidicate the `id` parameter in the constructor. For example:
 ```php
