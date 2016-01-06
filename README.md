@@ -13,7 +13,7 @@ En lugar de operar individualmente sobre las tablas table0, table1 y table3, pod
 $r = new DbRecord($db, "table0", 1);
 $r->save([
   "title" => "My title",
-  "created_ad" => date("Y-m-d H:i:s"),
+  "created_at" => date("Y-m-d H:i:s"),
   "table1.title" => "Title 1",
   "table2.title" => "Title 1",
   "table3.title" => "Title 1"
@@ -21,3 +21,18 @@ $r->save([
 ```
 
 El ejemplo anterior selecciona un registro de table0 (record ID = 1) y actualiza o inserta los correspondientes registros en table1, table2 y table3.
+
+Si queremos recuperar un registro, podemos hacerlo de la siguiente forma:
+
+```php
+$r = new DbRecord($db, "table0", 1);
+list($title, $createdOn, $t1Title, $t2Title, $t3Title) = $r->fetch([
+  "title",
+  "created_at",
+  "table1.title",
+  "table2.title",
+  "table3.title"
+]);
+```
+
+El ejemplo anterior recupera columnas de las tablas table0, table1, table2 y table3 y almacena los valores en las variables $title, $createdAt, $t1Title, $t2Title y $t3Title.
