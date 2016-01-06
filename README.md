@@ -24,7 +24,7 @@ Para insertar registros, omitimos el parámetro `id` en el constructor. Por ejem
 ```php
 // creates a new record (INSERT)
 $r = new DbRecord($db, "table0");
-$r->save(["title" => "New title"]);
+$r->save(["title" => "New title", "created_at" => date("Y-m-d H:i:s")]);
 ```
 
 ### Updating records
@@ -33,7 +33,7 @@ Para actualizar un registro, indicaremos el `id` en el constructor. Por ejemplo:
 ```php
 // updates a new record (UPDATE)
 $r = new DbRecord($db, "table0", 1);
-$r->save(["title" => "New title"]);
+$r->save(["title" => "New title", "created_at" => date("Y-m-d H:i:s")]);
 ```
 
 ## Selecting records
@@ -42,8 +42,8 @@ Para seleccionar un registro, indicaremos el `id` en el constructor. Por ejemplo
 ```php
 // selects a record an fetches column values (SELECT)
 $r = new DbRecord($db, "table0", 1);
-list($title) = $r->fetch(["title"]);
-echo $title;
+list($title, $createdAt) = $r->fetch(["title", "created_at" => date("Y-m-d H:i:s")]);
+echo "title: $title, Created at: $createdAt";
 ```
 
 En el caso de que estemos usando una única columnas, los métodos `save()` y `fetch()` se pueden simplificar como sigue:
@@ -53,6 +53,9 @@ En el caso de que estemos usando una única columnas, los métodos `save()` y `f
 $r->save("column", "value");
 $value = $r->fetch("column");
 ```
+
+Para un ejemplo completo, vea [test1.php](test/test1.php).
+
 ## General example: Accessing several tables at the same time
 
 Supongamos que tenemos una tabla principal (table0) de la que penden tres tablas secundarias (table1, table2 y table3) a través de los campos table1_id, table2_id y table3_id. Esto es:  
@@ -88,7 +91,7 @@ list($title, $createdOn, $t1Title, $t2Title, $t3Title) = $r->fetch([
 
 El ejemplo anterior recupera columnas de las tablas table0, table1, table2 y table3 y las almacena en las variables $title, $createdAt, $t1Title, $t2Title y $t3Title.
 
-Para ejemplos completos, vea [test1.php](test/test1.php) y [test2.php](test/test2.php).
+Para un ejemplo completo, vea [test2.php](test/test2.php).
 
 ## Column path expressions
 
