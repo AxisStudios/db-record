@@ -60,7 +60,7 @@ For a more complex example see [test1.php](test/test1.php).
 Let's say that we have a main table (`table0`) and three secondary tables (`table1`, `table2` and `table3`). The three tables are 'left joined' to the main table through the columns `table1_id`, `table2_id` and `table3_id`. That is:
 ![test](https://cloud.githubusercontent.com/assets/5312427/12149778/ec2fa156-b4a5-11e5-8697-f423856bb3cd.png)
 
-Instead of operating on tables individually, we can do it at the same time. The following example selects a record (ID = 1) and updates or inserts records on `table1`, `table2`, `table3`:
+Instead of operating on tables individually, we can do it at the same time. The following example selects a record (ID = 1) and updates or inserts records on `table1`, `table2` and `table3`:
 ```php
 $r = new DbRecord($db, "table0", 1);
 $r->save([
