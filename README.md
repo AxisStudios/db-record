@@ -16,7 +16,7 @@ See [Basic Usage](https://getcomposer.org/doc/01-basic-usage.md) for more info.
 
 ## Basic examples: save() and fetch()
 
-We use the methods `save()` and `fetch()` to save or retrieve records, respectively. The `save()` method can insert or update a record, depending on whether the record exists or not.
+We use the `save()` and `fetch()` methods to save or retrieve records, respectively. The `save()` method can insert or update a record, depending on whether the record exists or not.
 
 ### Inserting records
 
