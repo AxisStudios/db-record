@@ -35,4 +35,4 @@ list($title, $createdOn, $t1Title, $t2Title, $t3Title) = $r->fetch([
 ]);
 ```
 
-El ejemplo anterior recupera columnas de las tablas table0, table1, table2 y table3 y almacena los valores en las variables $title, $createdAt, $t1Title, $t2Title y $t3Title.
+El ejemplo anterior recupera columnas de las tablas table0, table1, table2 y table3 y las almacena en las variables $title, $createdAt, $t1Title, $t2Title y $t3Title.
