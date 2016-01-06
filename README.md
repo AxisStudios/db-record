@@ -12,7 +12,7 @@ This package is provided via [composer](https://getcomposer.org/) package manage
 composer install
 ```
 
-See (Basic Usage)[https://getcomposer.org/doc/01-basic-usage.md] for more info.
+See [Basic Usage](https://getcomposer.org/doc/01-basic-usage.md) for more info.
 
 ## Examples
 
