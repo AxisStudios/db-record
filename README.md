@@ -57,11 +57,10 @@ For a more complex example see [test1.php](test/test1.php).
 
 ## General example: Accessing several tables at the same time
 
-Supongamos que tenemos una tabla principal (table0) de la que penden tres tablas secundarias (table1, table2 y table3) a través de los campos table1_id, table2_id y table3_id. Esto es:  
+Let's say that we have a main table (`table0`) and three secondary tables (`table1`, `table2` and `table3`). The three tables are 'left joined' to the main table through the columns `table1_id`, `table2_id` and `table3_id`. That is:
 ![test](https://cloud.githubusercontent.com/assets/5312427/12149778/ec2fa156-b4a5-11e5-8697-f423856bb3cd.png)
 
-En lugar de operar individualmente sobre las tablas table0, table1 y table3, podemos hacerlo de una vez mediante el siguiente código:
-
+Instead of operating on tables individually, we can do it at the same time. The following example selects a record (ID = 1) and updates or inserts records on `table1`, `table2`, `table3`:
 ```php
 $r = new DbRecord($db, "table0", 1);
 $r->save([
@@ -73,24 +72,20 @@ $r->save([
 ]);
 ```
 
-El ejemplo anterior selecciona un registro de table0 (record ID = 1) y actualiza o inserta los correspondientes registros en table1, table2 y table3.
-
-Si queremos recuperar un registro, podemos hacerlo de la siguiente forma:
-
+The following example selects a record (ID = 1) and retrieves column values from `table0`, `table1`, `table2` and `table3` at the same time:
 ```php
 $r = new DbRecord($db, "table0", 1);
-list($title, $createdOn, $t1Title, $t2Title, $t3Title) = $r->fetch([
+list($title, $createdAt, $t1Title, $t2Title, $t3Title) = $r->fetch([
   "title",
   "created_at",
   "table1.title",
   "table2.title",
   "table3.title"
 ]);
+echo "title: $title, created_at: $createdAt, table1.title: $t1Title, table2.title, $t2Title, table3.title, $t3Title";
 ```
 
-El ejemplo anterior recupera columnas de las tablas table0, table1, table2 y table3 y las almacena en las variables $title, $createdAt, $t1Title, $t2Title y $t3Title.
-
-Para un ejemplo completo, vea [test2.php](test/test2.php).
+For a more complex example see [test2.php](test/test2.php).
 
 ## Column path expressions
 
