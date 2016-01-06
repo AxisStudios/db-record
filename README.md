@@ -16,21 +16,43 @@ See [Basic Usage](https://getcomposer.org/doc/01-basic-usage.md) for more info.
 
 ## Basic examples: save() and fetch()
 
+Usaremos los métodos `fetch()` y `save()` para recuperar o insertar/actualizar registros respectivamente. El método `save()` puede actualizar un registro o insertarlo, dependiendo si existe o no.
+
 ### Inserting records
 
 Para insertar registros, omitimos el parámetro `id` en el constructor. Por ejemplo:
 ```php
+// creates a new record (INSERT)
 $r = new DbRecord($db, "table0");
 $r->save(["title" => "New title"]);
 ```
 
-Al tratarse de una sóla columna (title), podemos escribir:
+### Updating records
+
+Para actualizar un registro, indicaremos el `id` en el constructor. Por ejemplo:
 ```php
-$r = new DbRecord($db, "table0");
-// no array needed
-$r->save("title", "New title");
+// updates a new record (UPDATE)
+$r = new DbRecord($db, "table0", 1);
+$r->save(["title" => "New title"]);
 ```
 
+## Selecting records
+
+Para seleccionar un registro, indicaremos el `id` en el constructor. Por ejemplo:
+```php
+// selects a record an fetches column values (SELECT)
+$r = new DbRecord($db, "table0", 1);
+list($title) = $r->fetch(["title"]);
+echo $title;
+```
+
+En el caso de que estemos usando una única columnas, los métodos `save()` y `fetch()` se pueden simplificar como sigue:
+
+```php
+// no array needed
+$r->save("column", "value");
+$value = $r->fetch("column");
+```
 ## General example: Accessing several tables at the same time
 
 Supongamos que tenemos una tabla principal (table0) de la que penden tres tablas secundarias (table1, table2 y table3) a través de los campos table1_id, table2_id y table3_id. Esto es:  
