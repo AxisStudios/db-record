@@ -4,6 +4,16 @@
 
 DbRecord es una librería que nos permite operar con bases de datos sin necesidad de ejecutar manualmente sentencias SQL. A diferencia de otras librerías similares, DbRecord nos permite **operar sobre varias tablas al mismo tiempo**, lo cual redunda en un código más conciso y claro.
 
+## Installation
+
+This package is provided via [composer](https://getcomposer.org/) package manager. Just create a `composer.json` file and execute the following command in the same directory:
+
+```bash
+composer install
+```
+
+See (Basic Usage)[https://getcomposer.org/doc/01-basic-usage.md] for more info.
+
 ## Examples
 
 ### Example 1
