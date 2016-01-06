@@ -5,6 +5,11 @@
  * There's a main table, called table0, and three linked tables (table1, table2 and table3).
  * The linked tables are 'left joined' to the main table by the fields
  * table1_id, table2_id and table3_id.
+ * 
+ * How to test this script:
+ * 1. Create a new database (for example 'test')
+ * 2. Import test/test.sql to create necessary tables
+ * 3. Change config.php with correct values (database, username and password)
  */
 header("Content-Type: text/plain; charset=utf-8");
 require_once "../vendor/autoload.php";

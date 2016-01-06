@@ -4,6 +4,11 @@
  * 
  * Triple somersault:
  * In this example table3 is linked to table2 which is linked to table1 which is linked to table0.
+ * 
+ * How to test this script:
+ * 1. Create a new database (for example 'test')
+ * 2. Import test/test.sql to create necessary tables
+ * 3. Change config.php with correct values (database, username and password)
  */
 header("Content-Type: text/plain; charset=utf-8");
 require_once "../vendor/autoload.php";

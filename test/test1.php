@@ -3,9 +3,15 @@
  * This PHP script illustrates how to operate over a single table (INSERT, SELECT and DELETE).
  * 
  * For more complex examples see test2.php.
+ * 
+ * How to test this script:
+ * 1. Create a new database (for example 'test')
+ * 2. Import test/test.sql to create necessary tables
+ * 3. Change config.php with correct values (database, username and password)
  */
 header("Content-Type: text/plain; charset=utf-8");
 require_once "../vendor/autoload.php";
+require_once "config.php";
 use soloproyectos\db\DbConnector;
 use soloproyectos\db\record\DbRecord;
 

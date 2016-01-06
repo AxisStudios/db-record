@@ -5,6 +5,11 @@
  * A 'column path' is a way to access columns from linked tables (left joined tables).
  * 
  * For more complex examples see test4.php.
+ * 
+ * How to test this script:
+ * 1. Create a new database (for example 'test')
+ * 2. Import test/test.sql to create necessary tables
+ * 3. Change config.php with correct values (database, username and password)
  */
 header("Content-Type: text/plain; charset=utf-8");
 require_once "../vendor/autoload.php";
