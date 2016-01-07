@@ -16,11 +16,11 @@ See [Basic Usage](https://getcomposer.org/doc/01-basic-usage.md) for more info.
 
 ## Basic examples: save(), fetch() and delete()
 
-We use the `save()`, `fetch()` and `delete()` methods to save, retrieve and delete records respectively. The `save()` method can insert or update a record, depending on whether the record exists or not.
+We use the `save()`, `fetch()` and `delete()` methods to save, retrieve and delete records respectively. The `save()` method can insert or update a record, depending on whether the `id` parameter is passed to the constructor.
 
 **Inserting records**
 
-To insert records we omit the `id` parameter from the constructor. For example:
+To insert records, we ommit the `id` parameter from the constructor:
 ```php
 $r = new DbRecord($db, "table0");
 $r->save(["title" => "New title", "created_at" => date("Y-m-d H:i:s")]);
@@ -28,7 +28,7 @@ $r->save(["title" => "New title", "created_at" => date("Y-m-d H:i:s")]);
 
 **Updating records**
 
-To update records, we inidicate the `id` parameter in the constructor. For example:
+Updates the record ID=1:
 ```php
 $r = new DbRecord($db, "table0", 1);
 $r->save(["title" => "New title", "created_at" => date("Y-m-d H:i:s")]);
@@ -36,7 +36,7 @@ $r->save(["title" => "New title", "created_at" => date("Y-m-d H:i:s")]);
 
 **Selecting records**
 
-To select records, we inidicate the `id` parameter in the constructor. For example:
+Selects the record ID=1:
 ```php
 $r = new DbRecord($db, "table0", 1);
 list($title, $createdAt) = $r->fetch(["title", "created_at" => date("Y-m-d H:i:s")]);
@@ -45,7 +45,7 @@ echo "title: $title, Created at: $createdAt";
 
 **Deleting records**
 
-To select records, we inidicate the `id` parameter in the constructor. For example:
+Delete the record ID=1:
 ```php
 $r = new DbRecord($db, "table0", 1);
 $r->delete();
