@@ -14,6 +14,10 @@ composer install
 
 See [Basic Usage](https://getcomposer.org/doc/01-basic-usage.md) for more info.
 
+## Database requirements
+
+This library can operate any database, with the only condition that each table **MUST** have a primary key composed by a single auto-increment column. By default, the primary key is called `ID`, but you can change it in the constructor.
+
 ## Basic examples: save(), fetch() and delete()
 
 We use the `save()`, `fetch()` and `delete()` methods to save, retrieve and delete records respectively. The `save()` method can insert or update a record, depending on whether the `id` parameter is passed to the constructor.
@@ -22,6 +26,7 @@ We use the `save()`, `fetch()` and `delete()` methods to save, retrieve and dele
 
 To insert records, we ommit the `id` parameter from the constructor:
 ```php
+// insert a record, as the 'id' parameter is not present
 $r = new DbRecord($db, "table0");
 $r->save(["title" => "New title", "created_at" => date("Y-m-d H:i:s")]);
 ```
