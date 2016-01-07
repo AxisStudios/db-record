@@ -16,7 +16,7 @@ See [Basic Usage](https://getcomposer.org/doc/01-basic-usage.md) for more info.
 
 ## Database requirements
 
-This library can operate any MySQL database, with the only condition that each table **MUST** have a primary key composed by a single auto-increment column. By default, the primary key is called `ID`, but you can change it in the constructor.
+This library can operate any MySQL database, with the only condition that each table **MUST** have a primary key composed by a single auto-increment column. By default, the primary key is called `ID`, but you can change it from the constructor.
 
 ## Basic examples: save(), fetch() and delete()
 
