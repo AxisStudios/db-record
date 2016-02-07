@@ -289,26 +289,6 @@ class DbRecord
     }
     
     /**
-     * Registers a list of columns.
-     * 
-     * This method empties the current tables and columns and registers a list of columns.
-     * 
-     * @param string[] $colPaths Column paths
-     * 
-     * @return DbRecordColumn[]
-     */
-    private function _regColumns($colPaths)
-    {
-        $ret  =[];
-        $this->_tables = [];
-        $this->_columns = [];
-        foreach ($colPaths as $colPath) {
-            array_push($ret, $this->regColumn($colPath));
-        }
-        return $ret;
-    }
-    
-    /**
      * Adds colum.
      * 
      * @param DbRecordColumn $column Column
