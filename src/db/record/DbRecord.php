@@ -48,7 +48,7 @@ class DbRecord
     
     /**
      * List of left join tables.
-     * @var DbRecordTable[]
+     * @var DbRecordLeftJoin[]
      */
     private $_tables = [];
     
@@ -379,7 +379,7 @@ class DbRecord
         $table = $record->_searchTable($tableName, $pkName, $column->getName());
         if ($table === null) {
             $table = $record->_addTable(
-                new DbRecordTable(
+                new DbRecordLeftJoin(
                     new DbRecord($this->_db, $tableName, [$pkName => $column->getValue()]),
                     $column
                 )
@@ -426,7 +426,7 @@ class DbRecord
     /**
      * Adds a 'left join' table.
      * 
-     * @param DbRecordTable $table Left join table
+     * @param DbRecordLeftJoin $table Left join table
      * 
      * @return DbRecord
      */
