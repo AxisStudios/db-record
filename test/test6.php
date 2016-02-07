@@ -74,5 +74,5 @@ $c->{"table2.title"} = "Title " . $b->{"table2.id"};
 $c->{"table3.title"} = "Title " . $b->{"table3.id"};
 $c->save();
 
-// deletes the previous record
-$c->delete();
+// deletes the previous record and all linked records
+$c->deleteAll();
