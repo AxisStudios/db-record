@@ -18,33 +18,34 @@ See [Basic Usage](https://getcomposer.org/doc/01-basic-usage.md) for more info.
 
 This library can operate any MySQL database, with the only condition that each table **MUST** have a primary key composed by a single auto-increment column. By default, the primary key is called `ID`, but you can change it from the constructor.
 
-## Basic examples: save(), fetch() and delete()
+## Basic examples: insert(), update(), select() and delete()
 
-We use the `save()`, `fetch()` and `delete()` methods to save, retrieve and delete records respectively. The `save()` method can insert or update a record, depending on whether the `id` parameter is passed to the constructor.
+We use the `DbRecordTable` class to perform basic operations.
 
 **Inserting records**
 
 To insert records, we ommit the `id` parameter from the constructor:
 ```php
 // insert a record, as the 'id' parameter is not present
-$r = new DbRecord($db, "table0");
-$r->save(["title" => "New title", "created_at" => date("Y-m-d H:i:s")]);
+$t = new DbRecordTable($db, "table0");
+$id = $t->insert(["title" => "New title", "created_at" => date("Y-m-d H:i:s")]);
+echo "Inserted record ID: $id";
 ```
 
 **Updating records**
 
 Updates the record ID=1:
 ```php
-$r = new DbRecord($db, "table0", 1);
-$r->save(["title" => "New title", "created_at" => date("Y-m-d H:i:s")]);
+$t = new DbRecordTable($db, "table0");
+$t->update(["title" => "New title", "created_at" => date("Y-m-d H:i:s")], 1);
 ```
 
 **Selecting records**
 
 Selects the record ID=1:
 ```php
-$r = new DbRecord($db, "table0", 1);
-list($title, $createdAt) = $r->fetch(["title", "created_at" => date("Y-m-d H:i:s")]);
+$t = new DbRecordTable($db, "table0");
+list($title, $createdAt) = $t->select(["title", "created_at" => date("Y-m-d H:i:s")], 1);
 echo "title: $title, Created at: $createdAt";
 ```
 
@@ -52,15 +53,8 @@ echo "title: $title, Created at: $createdAt";
 
 Delete the record ID=1:
 ```php
-$r = new DbRecord($db, "table0", 1);
-$r->delete();
-```
-
-In case we're using a single column, the `save()` and `fetch()` methods can be simplified as follows:
-```php
-// no array needed
-$r->save("column", "value");
-$value = $r->fetch("column");
+$t = new DbRecordTable($db, "table0");
+$t->delete(1);
 ```
 
 For a more complex example see [test1.php](test/test1.php).
@@ -72,26 +66,33 @@ Let's say that we have a main table (`table0`) and three secondary tables (`tabl
 
 Instead of operating on tables individually, we can do it at the same time. The following example selects a record (ID = 1) and updates or inserts records on `table1`, `table2` and `table3`:
 ```php
-$r = new DbRecord($db, "table0", 1);
-$r->save([
-  "title" => "My title",
-  "created_at" => date("Y-m-d H:i:s"),
-  "table1.title" => "Title 1",
-  "table2.title" => "Title 1",
-  "table3.title" => "Title 1"
-]);
+// the following example updates table0, table1, table2 and table3 at the same time
+$t = new DbRecordTable($db, "table0");
+$t->update(
+  [
+    "title" => "My title",
+    "created_at" => date("Y-m-d H:i:s"),
+    "table1.title" => "Title 1",
+    "table2.title" => "Title 2",
+    "table3.title" => "Title 3"
+  ],
+  1
+);
 ```
 
 The following example selects a record (ID = 1) and retrieves columns from `table0`, `table1`, `table2` and `table3` at the same time:
 ```php
-$r = new DbRecord($db, "table0", 1);
-list($title, $createdAt, $t1Title, $t2Title, $t3Title) = $r->fetch([
-  "title",
-  "created_at",
-  "table1.title",
-  "table2.title",
-  "table3.title"
-]);
+$t = new DbRecordTable($db, "table0", 1);
+list($title, $createdAt, $t1Title, $t2Title, $t3Title) = $t->select(
+  [
+    "title",
+    "created_at",
+    "table1.title",
+    "table2.title",
+    "table3.title"
+  ],
+  1
+);
 echo "title: $title, created_at: $createdAt, table1.title: $t1Title, table2.title, $t2Title, table3.title, $t3Title";
 ```
 
@@ -115,12 +116,15 @@ Let's imagine a more complex example. Let's say that `table2` depends on `table1
 
 In that case, we use the following code to access the `table1` and `table2` columns:
 ```php
-$r = DbRecord($db, "table0", 1);
-list($title, $t1Title, $t2Title) = $r->fetch([
-  "title",
-  "table1.title",
-  "table2[table1.table2_id].title"
-]);
+$t = DbRecordTable($db, "table0");
+list($title, $t1Title, $t2Title) = $t->select(
+  [
+    "title",
+    "table1.title",
+    "table2[table1.table2_id].title"
+  ],
+  1
+);
 ```
 
 The previous expressios are simplified versions of the general expressions:
