@@ -178,14 +178,29 @@ class DbRecord
     /**
      * Deletes the current record.
      * 
-     * This method deletes the current record and also all linked records.
-     * 
      * @return void
      */
     public function delete()
     {
         $this->_db->exec($this->_getDeleteStatement());
         $this->_isUpdated = true;
+    }
+    
+    /**
+     * Deletes the current record and olso de linked records.
+     * 
+     * @return void
+     */
+    public function deleteAll()
+    {
+        // first deletes linked records
+        foreach ($this->_tables as $table) {
+            $record = $table->getRecord();
+            $record->deleteAll();
+        }
+        
+        // and finally deletes the current record
+        $this->delete();
     }
     
     /**
