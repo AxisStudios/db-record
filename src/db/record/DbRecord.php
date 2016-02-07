@@ -277,7 +277,7 @@ class DbRecord
         if ($table === null) {
             $table = $record->_addTable(
                 new DbRecordLeftJoin(
-                    new DbRecord($this->_db, $tableName, [$pkName => $column->getValue()]),
+                    new static($this->_db, $tableName, [$pkName => $column->getValue()]),
                     $column
                 )
             );
