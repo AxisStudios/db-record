@@ -64,7 +64,10 @@ class DbRecordActive extends DbRecord
      */
     public function __get($colName)
     {
-        $col = $this->regColumn($colName);
+        $pk = $this->getPrimaryKey();
+        $col = $pk->getName() == $colName
+            ? $pk
+            : $this->regColumn($colName);
         return $col->getValue();
     }
     
