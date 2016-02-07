@@ -13,7 +13,7 @@ header("Content-Type: text/plain; charset=utf-8");
 require_once "../vendor/autoload.php";
 require_once "config.php";
 use soloproyectos\db\DbConnector;
-use soloproyectos\db\record\DbRecord;
+use soloproyectos\db\record\DbRecordTable;
 
 // creates a new connector instance and prints each SQL statement (debugging)
 $db = new DbConnector("test", "test", "test");
@@ -21,22 +21,18 @@ $db->addDebugListener(function ($sql) {
     echo "--$sql\n";
 });
 
-// creates a new record (INSERT)
-echo "### Creates a new record\n";
-$r = new DbRecord($db, "table0");
-$r->save(["title" => "Title", "created_at" => date("Y-m-d H:i:s")]);
+// table manager
+$t = new DbRecordTable($db, "table0");
 
-// fetches column values (SELECT)
-echo "\n### Fetches column values\n";
-list($id, $title, $createdAt) = $r->fetch(["id", "title", "created_at"]);
+// inserts a record
+echo "### Inserts a record\n";
+$id = $t->insert(["title" => "Title", "created_at" => date("Y-m-d H:i:s")]);
+
+// selects a record
+echo "\n### Selects a record\n";
+list($title, $createdAt) = $t->select(["title", "created_at"], $id);
 echo "id: $id, title: $title, created_at: $createdAt\n";
 
-// selects a record and prints its column values (SELECT)
-echo "\n### Selects a record and prints its column values\n";
-$r = new DbRecord($db, "table0", $id);
-list($title, $createdAt) = $r->fetch(["title", "created_at"]);
-echo "title: $title, created_at: $createdAt\n";
-
-// deletes the previous record (DELETE)
+// deletes a record
 echo "\n### Deletes the previous record\n";
-$r->delete();
+$t->delete($id);
