@@ -122,121 +122,57 @@ class DbRecord
     }
     
     /**
-     * Saves the current record.
-     * 
-     * Examples:
-     * ```php
-     * // saves a single column
-     * $r->save("col0", "val0");
-     * 
-     * // saves multiple columns
-     * $r->save(["col0" => "val0", "col1" => "val1", "col2" => "val2"]);
-     * ```
-     * 
-     * @param array $colVals Column values
+     * Inserts or updates the current record.
      * 
      * @return void
      */
     public function save($colVals = [])
     {
-        $ret = [];
-        
-        // method overloading
-        if (func_num_args() > 1) {
-            $colPath = func_get_arg(0);
-            $colVal = func_get_arg(1);
-            $colVals = [$colPath => $colVal];
+        // first saves the 'left join' tables
+        foreach ($this->_tables as $table) {
+            $table->save();
         }
         
-        if (count($colVals) > 0) {
-            // registers columns and saves
-            $cols = $this->_regColumns(array_keys($colVals));
-            $vals = array_values($colVals);
-            foreach ($cols as $i => $col) {
-                $col->setValue($vals[$i]);
+        $columns = $this->_getChangedColumns();
+        if ($this->_primaryKey->hasChanged()) {
+            // update
+            if (count($columns) > 0) {
+                $this->_db->exec($this->_getUpdateStatement($columns));
             }
-            $this->save();
         } else {
-            // first saves the 'left join' tables
-            foreach ($this->_tables as $table) {
-                $table->save();
-            }
-            
-            $columns = $this->_getChangedColumns();
-            if ($this->_primaryKey->hasChanged()) {
-                // update
-                if (count($columns) > 0) {
-                    $this->_db->exec($this->_getUpdateStatement($columns));
-                }
-            } else {
-                // insert
-                $this->_db->exec($this->_getInsertStatement($columns));
-                $row = $this->_db->query("select last_insert_id() as id");
-                $this->_primaryKey->setValue($row["id"]);
-            }
-            
-            // resets columns
-            foreach ($columns as $column) {
-                $column->reset();
-            }
-            $this->_isUpdated = false;
+            // insert
+            $this->_db->exec($this->_getInsertStatement($columns));
+            $row = $this->_db->query("select last_insert_id() as id");
+            $this->_primaryKey->setValue($row["id"]);
         }
         
-        return $ret;
+        // resets columns
+        foreach ($columns as $column) {
+            $column->reset();
+        }
+        $this->_isUpdated = false;
     }
     
     /**
      * Fetches column values from database.
      * 
-     * Examples:
-     * ```php
-     * // fetches a single column
-     * $col0 = $r->fetch("col0");
-     * 
-     * // fetches multiple columns
-     * list($col0, $col1, $col2) = $this->fetch(["col0", "col1", "col2"]);
-     * ```
-     * 
-     * @param array|mixed $colPaths Column paths (not required)
-     * 
-     * @return mixed|mixed[]
+     * @return void
      */
-    public function fetch($colPaths = [])
+    public function fetch()
     {
-        $ret = [];
-        
-        // method overloading
-        $isArrayColPaths = is_array($colPaths);
-        if (!$isArrayColPaths) {
-            $colPaths = [$colPaths];
-        }
-        
-        if (count($colPaths) > 0) {
-            // registers columns and fetches values
-            $cols = $this->_regColumns($colPaths);
-            foreach ($cols as $col) {
-                array_push($ret, $col->getValue());
-            }
-            if (!$isArrayColPaths) {
-                $ret = $ret[0];
-            }
-        } else {
-            if ($this->_primaryKey->hasChanged()) {
-                // gets the columns that haven't changed
-                $columns = array_diff($this->_columns, $this->_getChangedColumns());
-                
-                // fills columns
-                if (count($columns) > 0) {
-                    $row = $this->_db->query($this->_getSelectStatement($columns));
-                    foreach ($columns as $column) {
-                        $column->setDbValue($row[$column->getName()]);
-                    }
+        if ($this->_primaryKey->hasChanged()) {
+            // gets the columns that haven't changed
+            $columns = array_diff($this->_columns, $this->_getChangedColumns());
+            
+            // fills columns
+            if (count($columns) > 0) {
+                $row = $this->_db->query($this->_getSelectStatement($columns));
+                foreach ($columns as $column) {
+                    $column->setDbValue($row[$column->getName()]);
                 }
             }
-            $this->_isUpdated = true;
         }
-        
-        return $ret;
+        $this->_isUpdated = true;
     }
     
     /**
@@ -244,58 +180,21 @@ class DbRecord
      * 
      * This method deletes the current record and also all linked records.
      * 
-     * Example:
-     * ```php
-     * // deletes the current record
-     * $r->delete();
-     * 
-     * // deletes the current record and the linked record
-     * // 'table1' is linked to 'table0' by the 'table1[id = table1_id]' condition
-     * $r->delete("table1[id = table1_id]");
-     * 
-     * // or more briefly
-     * $r->delete("table1");
-     * 
-     * // deletes the current record and a list of linked records
-     * $r->delete("table1", "table2", "table3");
-     * 
-     * // creates a new record and, after that, deletes the
-     * // linked records (table1, table2 and table3)
-     * $r = new DbRecord($db, "table0");
-     * $r->save([
-     *     "label" => "xxx",
-     *     "table1.label" => "aaa",
-     *     "table2.label" => "bbb",
-     *     "table3.label" => "ccc"
-     * ]);
-     * $r->delete();
-     * ```
-     * 
      * @param string[] $tablePaths List of table paths
      * 
      * @return void
      */
-    public function delete($tablePaths = [])
+    public function delete()
     {
-        if (count($tablePaths) > 0) {
-            // registers tables and deletes
-            $this->_tables = [];
-            $this->_columns = [];
-            foreach ($tablePaths as $tablePath) {
-                $this->regTable($tablePath);
-            }
-            $this->delete();
-        } else {
-            // first deletes linked records
-            foreach ($this->_tables as $table) {
-                $record = $table->getRecord();
-                $record->delete();
-            }
-            
-            // and finally deletes the current record
-            $this->_db->exec($this->_getDeleteStatement());
-            $this->_isUpdated = true;
+        // first deletes linked records
+        foreach ($this->_tables as $table) {
+            $record = $table->getRecord();
+            $record->delete();
         }
+        
+        // and finally deletes the current record
+        $this->_db->exec($this->_getDeleteStatement());
+        $this->_isUpdated = true;
     }
     
     /**
