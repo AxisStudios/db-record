@@ -84,8 +84,7 @@ class DbRecordTable
      * echo "Inserted record ID: $id";
      * ```
      * 
-     * @param array       $colPaths Column paths
-     * @param mixed|array $pk       Primary key
+     * @param array $colVals Column values
      * 
      * @return mixed
      */
@@ -112,8 +111,8 @@ class DbRecordTable
      * $t->update(["title" => "Title $id"], ["pk" => 17]);
      * ```
      * 
-     * @param array       $colPaths Column paths
-     * @param mixed|array $pk       Primary key
+     * @param array       $colVals Column values
+     * @param mixed|array $pk      Primary key
      * 
      * @return mixed
      */
@@ -138,6 +137,8 @@ class DbRecordTable
      * $t->delete(["pk" => 17]);
      * ```
      * 
+     * @param mixed|array $pk Primary key
+     * 
      * @return void
      */
     public function delete($pk)
@@ -151,8 +152,8 @@ class DbRecordTable
      * 
      * This function returns the the record ID.
      * 
-     * @param array       $colPaths Column paths
-     * @param mixed|array $pk       Primary key
+     * @param array       $colVals Column values
+     * @param mixed|array $pk      Primary key (not required)
      * 
      * @return mixed
      */

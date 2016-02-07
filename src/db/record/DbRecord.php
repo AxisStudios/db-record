@@ -126,7 +126,7 @@ class DbRecord
      * 
      * @return void
      */
-    public function save($colVals = [])
+    public function save()
     {
         // first saves the 'left join' tables
         foreach ($this->_tables as $table) {
@@ -179,8 +179,6 @@ class DbRecord
      * Deletes the current record.
      * 
      * This method deletes the current record and also all linked records.
-     * 
-     * @param string[] $tablePaths List of table paths
      * 
      * @return void
      */
