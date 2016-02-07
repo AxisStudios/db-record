@@ -197,7 +197,7 @@ class DbRecord
      * list($col0, $col1, $col2) = $this->fetch(["col0", "col1", "col2"]);
      * ```
      * 
-     * @param array|mixed $colPaths Column paths
+     * @param array|mixed $colPaths Column paths (not required)
      * 
      * @return mixed|mixed[]
      */
