@@ -184,13 +184,6 @@ class DbRecord
      */
     public function delete()
     {
-        // first deletes linked records
-        foreach ($this->_tables as $table) {
-            $record = $table->getRecord();
-            $record->delete();
-        }
-        
-        // and finally deletes the current record
         $this->_db->exec($this->_getDeleteStatement());
         $this->_isUpdated = true;
     }
