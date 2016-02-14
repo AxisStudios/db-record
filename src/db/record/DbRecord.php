@@ -102,6 +102,16 @@ class DbRecord
     }
     
     /**
+     * Gets the table name.
+     * 
+     * @return string
+     */
+    public function getTableName()
+    {
+        return $this->_tableName;
+    }
+    
+    /**
      * Gets the list of columns.
      * 
      * @return DbRecordColumn[]
