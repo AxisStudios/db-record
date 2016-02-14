@@ -102,6 +102,16 @@ class DbRecord
     }
     
     /**
+     * Gets the list of columns.
+     * 
+     * @return DbRecordColumn[]
+     */
+    public function getColumns()
+    {
+        return $this->_columns;
+    }
+    
+    /**
      * Gets the list of 'left joins'
      * 
      * @return DbRecordLeftJoin[]
