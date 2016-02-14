@@ -50,7 +50,7 @@ class DbRecord
      * List of left join tables.
      * @var DbRecordLeftJoin[]
      */
-    private $_tables = [];
+    private $_leftJoins = [];
     
     /**
      * Is the record updated?
@@ -129,8 +129,8 @@ class DbRecord
     public function save()
     {
         // first saves the 'left join' tables
-        foreach ($this->_tables as $table) {
-            $table->save();
+        foreach ($this->_leftJoins as $leftJoin) {
+            $leftJoin->save();
         }
         
         $columns = $this->_getChangedColumns();
@@ -194,8 +194,8 @@ class DbRecord
     public function deleteAll()
     {
         // first deletes linked records
-        foreach ($this->_tables as $table) {
-            $record = $table->getRecord();
+        foreach ($this->_leftJoins as $leftJoin) {
+            $record = $leftJoin->getRecord();
             $record->deleteAll();
         }
         
@@ -311,14 +311,14 @@ class DbRecord
     /**
      * Adds a 'left join' table.
      * 
-     * @param DbRecordLeftJoin $table Left join table
+     * @param DbRecordLeftJoin $leftJoin Left join table
      * 
      * @return DbRecord
      */
-    private function _addTable($table)
+    private function _addTable($leftJoin)
     {
-        array_push($this->_tables, $table);
-        return $table->getRecord();
+        array_push($this->_leftJoins, $leftJoin);
+        return $leftJoin->getRecord();
     }
     
     /**
@@ -352,10 +352,10 @@ class DbRecord
     private function _searchTable($tableName, $pkName, $colName)
     {
         $ret = null;
-        foreach ($this->_tables as $table) {
-            $record = $table->getRecord();
+        foreach ($this->_leftJoins as $leftJoin) {
+            $record = $leftJoin->getRecord();
             $pk = $record->getPrimaryKey();
-            $column = $table->getColumn();
+            $column = $leftJoin->getColumn();
             if ($record->_tableName == $tableName
                 && $pk->getName() == $pkName
                 && $column->getName() == $colName
