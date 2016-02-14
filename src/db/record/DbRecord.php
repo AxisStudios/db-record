@@ -102,6 +102,16 @@ class DbRecord
     }
     
     /**
+     * Gets the list of 'left joins'
+     * 
+     * @return DbRecordLeftJoin[]
+     */
+    public function getLeftJoins()
+    {
+        return $this->_leftJoins;
+    }
+    
+    /**
      * Gets the primary key column.
      * 
      * @return DbRecordColumn
