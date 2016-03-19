@@ -82,7 +82,7 @@ $t->update(
 
 The following example selects a record (ID = 1) and retrieves columns from `table0`, `table1`, `table2` and `table3` at the same time:
 ```php
-$t = new DbRecordTable($db, "table0", 1);
+$t = new DbRecordTable($db, "table0");
 list($title, $createdAt, $t1Title, $t2Title, $t3Title) = $t->select(
   [
     "title",
