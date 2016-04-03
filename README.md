@@ -45,7 +45,7 @@ $t->update(["title" => "New title", "created_at" => date("Y-m-d H:i:s")], 1);
 Selects the record ID=1:
 ```php
 $t = new DbRecordTable($db, "table0");
-list($title, $createdAt) = $t->select(["title", "created_at" => date("Y-m-d H:i:s")], 1);
+list($title, $createdAt) = $t->select(["title", "created_at"], 1);
 echo "title: $title, Created at: $createdAt";
 ```
 
