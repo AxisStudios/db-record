@@ -40,6 +40,17 @@ $t = new DbRecordTable($db, "table0");
 $t->update(["title" => "New title", "created_at" => date("Y-m-d H:i:s")], 1);
 ```
 
+**Inserting/Updating records**
+
+You can insert or update a record in the same line. For example:
+```php
+$t = new DbRecordTable($db, "table0");
+// if $recordId is null, insert a new record and returns the id,
+// otherwise update the current record
+$recordId = $t->save(["title" => "New title", "created_at" => date("Y-m-d H:i:s")], $recordId);
+echo $recordId;
+```
+
 **Selecting records**
 
 Selects the record ID=1:
