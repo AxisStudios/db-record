@@ -7,6 +7,7 @@
  * @link    https://github.com/soloproyectos-php/db-record
  */
 namespace soloproyectos\db\record;
+use soloproyectos\text\Text;
 
 /**
  * DbRecordTable class.
@@ -90,7 +91,7 @@ class DbRecordTable
      */
     public function insert($colVals)
     {
-        return $this->_save($colVals);
+        return $this->save($colVals);
     }
     
     /**
@@ -118,7 +119,7 @@ class DbRecordTable
      */
     public function update($colVals, $pk)
     {
-        return $this->_save($colVals, $pk);
+        return $this->save($colVals, $pk);
     }
     
     /**
@@ -157,7 +158,7 @@ class DbRecordTable
      * 
      * @return mixed
      */
-    private function _save($colVals, $pk = ["id" => ""])
+    public function save($colVals, $pk = ["id" => ""])
     {
         $r = new DbRecord($this->_db, $this->_tableName, $pk);
         
