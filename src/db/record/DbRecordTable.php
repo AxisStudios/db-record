@@ -23,7 +23,7 @@ class DbRecordTable
      * Database connector.
      * @var DbConnector
      */
-    private $_db = null;
+    protected $db = null;
     
     /**
      * Table name.
@@ -39,7 +39,7 @@ class DbRecordTable
      */
     public function __construct($db, $tableName)
     {
-        $this->_db = $db;
+        $this->db = $db;
         $this->_tableName = $tableName;
     }
     
@@ -61,7 +61,7 @@ class DbRecordTable
     public function select($colPaths, $pk)
     {
         $ret = [];
-        $r = new DbRecord($this->_db, $this->_tableName, $pk);
+        $r = new DbRecord($this->db, $this->_tableName, $pk);
         
         // registers columns
         $cols = $this->_regColumns($r, $colPaths);
@@ -144,7 +144,7 @@ class DbRecordTable
      */
     public function delete($pk)
     {
-        $r = new DbRecord($this->_db, $this->_tableName, $pk);
+        $r = new DbRecord($this->db, $this->_tableName, $pk);
         $r->delete();
     }
     
@@ -160,7 +160,7 @@ class DbRecordTable
      */
     public function save($colVals, $pk = ["id" => ""])
     {
-        $r = new DbRecord($this->_db, $this->_tableName, $pk);
+        $r = new DbRecord($this->db, $this->_tableName, $pk);
         
         // registers columns and saves
         $cols = $this->_regColumns($r, array_keys($colVals));
