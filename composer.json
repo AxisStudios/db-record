@@ -1,5 +1,5 @@
 {
-    "name": "soloproyectos-php/db-source",
+    "name": "soloproyectos-php/db-record",
     "description": "Manage database records. This library is part of the SoloProyectos PHP API.",
     "type": "php-library",
     "license": "The MIT License (MIT)",
