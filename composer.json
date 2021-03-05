@@ -1,23 +1,17 @@
 {
-    "name": "soloproyectos-php/db-record",
+    "name": "axisstudios/db-record",
     "description": "Manage database records. This library is part of the SoloProyectos PHP API.",
     "type": "php-library",
     "license": "MIT",
-    "authors": [
-        {
-            "name": "Gonzalo Chumillas",
-            "email": "gchumillas@email.com"
-        }
-    ],
     "require": {
         "php": ">=5.5.0",
-        "soloproyectos-php/db": "~1.1",
-        "soloproyectos-php/array": "~1.0",
-        "soloproyectos-php/text": "~1.0"
+        "axisstudios/db": "~1.1",
+        "axisstudios/array": "~1.0",
+        "axisstudios/text": "~1.0"
     },
     "autoload": {
         "psr-4": {
-            "soloproyectos\\": "src/"
+            "axisstudios\\": "src/"
         }
     }
 }
